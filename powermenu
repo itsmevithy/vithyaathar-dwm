@@ -1,0 +1,44 @@
+#!/bin/bash
+
+
+function powermenu {
+	options="Cancel\nShutdown\nRestart\nSleep\nLock"
+	selected=$(echo -e $options | dmenu)
+	if [[ $selected = "Shutdown" ]]; then
+	        choice="The system will power off!\nYES\nNO"
+		selection=$(echo -e $choice | dmenu)
+		if [[ $selection = "YES" ]]; then
+			poweroff
+		elif [[ $selection = "NO" ]]; then
+			return
+		fi	
+	elif [[ $selected = "Restart" ]]; then
+		choice="The system will restart\nYES\nNO"
+		selection=$(echo -e $choice | dmenu)
+		if [[ $selection = "YES" ]]; then
+			reboot
+		elif [[ $selection = "NO" ]]; then
+			return
+		fi
+	elif [[ $selected = "Sleep" ]]; then
+		choice="The system will hibernate\nYES\nNO"
+		selection=$(echo -e $choice | dmenu)
+		if [[ $selection = "YES" ]]; then
+			systemctl suspend
+		elif [[ $selection = "NO" ]]; then
+			return
+		fi
+	elif [[ $selected = "Lock" ]]; then
+		choice="YES\nNO"
+		selection=$(echo -e $choice | dmenu)
+		if [[ $selection = "YES" ]]; then
+			slock
+		elif [[ $selection = "NO" ]]; then
+			return
+		fi
+	elif [[ $selected = "Cancel" ]]; then
+		return
+	fi
+}
+
+powermenu
