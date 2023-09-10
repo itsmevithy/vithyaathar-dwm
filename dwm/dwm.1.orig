@@ -95,9 +95,6 @@ selected window
 The attach below patch makes newly spawned windows attach after the currently
 selected window
 .P
-The attach below patch makes newly spawned windows attach after the currently
-selected window
-.P
 dwm draws a small border around windows to indicate the focus state.
 .SH OPTIONS
 .TP

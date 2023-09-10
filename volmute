@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pactl set-sink-mute 0 toggle && refbar
+pactl set-sink-mute 0 toggle
 

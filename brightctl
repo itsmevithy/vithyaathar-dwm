@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case $1 in
+	'+')
+		brightnessctl s +$2%;;
+	'-')
+		if [ $2 -lt $(brightnessctl g) ]
+		then
+			brightnessctl s $2%-
+		fi;;
+esac	

@@ -1,18 +1,15 @@
 #!/bin/sh
 
-datetime() {
-	time="$(date "+ %H:%M:%S %Z | %a %d %b %Y ")"
-
-}
-
-volume() {
-	vol="Vol : $(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')%" 
+refresh_data() {
+	time="$(date "+ %H:%M %Z | %a %d %b %Y ")"
+	vol="Vol : $(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')%"
+	bat="Bt: $(cat /sys/class/power_supply/BAT0/capacity)%"
+	bright="B: $(cat /sys/class/backlight/intel_backlight/brightness)%"
 }
 
 while true
 do
-	volume
-	datetime
-	xsetroot -name "| $vol |$time";
-	sleep 1s;
+	refresh_data
+	xsetroot -name "| $bat | $bright | $vol |$time";
+	sleep 1m;
 done
